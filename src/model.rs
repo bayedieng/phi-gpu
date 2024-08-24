@@ -1,11 +1,30 @@
-use phi_gpu::{self, Config, ModelWeights, TensorVec};
+use phi_gpu::{self, ModelWeights, TensorVec};
+use serde::Deserialize;
+
+#[derive(Debug, Deserialize)]
+pub struct Config {
+    pub vocab_size: usize,
+    pub hidden_size: usize,
+    pub intermediate_size: usize,
+    pub num_hidden_layers: usize,
+    pub num_attention_heads: usize,
+    pub num_key_value_heads: Option<usize>,
+    pub max_position_embeddings: usize,
+    pub layer_norm_eps: f64,
+    pub tie_word_embeddings: bool,
+    pub rope_theta: f32,
+    pub partial_rotary_factor: f64,
+    pub qk_layernorm: bool,
+}
 
 pub struct Model {
     config: Config,
 }
 
 impl Model {
-    pub fn new(config: Config) -> Self {
+    pub fn new() -> Self {
+        let config = serde_json::from_str(include_str!("../models/config.json")).unwrap();
+
         Self { config }
     }
 
