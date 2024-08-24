@@ -4,5 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+half = "2.4.1"
+memmap2 = "0.9.4"
 safetensors = "0.4.4"
+serde = { version = "1.0.209", features = ["derive"] }
+serde_json = "1.0.127"
+tokenizers = "0.20.0"
 wgpu = "22.1.0"
